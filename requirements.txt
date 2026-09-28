@@ -1,0 +1,5 @@
+# Direct dependencies inferred from source imports; versions are not experiment-pinned.
+requests
+Pillow
+pandas
+openai

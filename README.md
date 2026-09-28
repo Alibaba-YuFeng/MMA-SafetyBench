@@ -16,6 +16,12 @@
 
 ## Overview
 
+<p align="center">
+  <a href="assets/overview.png"><img src="assets/overview.png" alt="MMA-SafetyBench overview: visual semantic hijacking, benchmark construction across five domains, and ASR/SCR evaluation." width="100%"></a>
+</p>
+
+*Benchmark overview from the manuscript. Click the figure to view the full-resolution original. Illustrated attack outcomes are target behaviors; a predicted action does not establish real-world execution.*
+
 MMA-SafetyBench evaluates how multimodal agents respond to malicious instructions embedded in the content they observe. It covers five domains, from web and mobile interfaces to documents and video, to study whether agents follow the legitimate task or are redirected by injected content.
 
 The benchmark distinguishes **attack success** from **semantic compromise**. For coordinate-based evaluations, a predicted click on an attack target is an output-level success signal—not evidence that an action was executed in a live environment.

@@ -1,10 +1,28 @@
+<div align="center">
+
 # MMA-SafetyBench
+### A Benchmark for Multimodal Agent Safety Evaluation
 
-**A Benchmark for Multimodal Agent Safety Evaluation**
+**NeurIPS 2026 · Evaluations and Datasets Track · Poster**
 
-[Dataset](https://huggingface.co/datasets/Alibaba-YuFeng/MMA-SafetyBench)
- · [Evaluation notes](docs/EVALUATION.md)
- · [Code review & remaining gaps](docs/CODE_REVIEW.md)
+[Yuke Wang](https://openreview.net/profile?id=~Yuke_Wang6)<sup>2,*</sup> · [Benlei Cui](https://openreview.net/profile?id=~Benlei_Cui1)<sup>1,*</sup> · [Shen Pang](https://openreview.net/profile?id=~Shen_Pang1)<sup>2</sup> · [Xuemei Dong](https://openreview.net/profile?id=~Xuemei_Dong1)<sup>2,†</sup> · [Longtao Huang](https://openreview.net/profile?id=~Longtao_Huang2)<sup>1</sup><br>
+[Hui Xue](https://openreview.net/profile?id=~Hui_Xue5)<sup>1</sup> · [Yuwen Zhai](https://openreview.net/profile?id=~Yuwen_Zhai1)<sup>1</sup> · [Junjie Li](https://openreview.net/profile?id=~Junjie_Li31)<sup>4</sup> · [Jingqun Tang](https://openreview.net/profile?id=~Jingqun_Tang1)<sup>3</sup> · [Haiwen Hong](https://openreview.net/profile?id=~Haiwen_Hong1)<sup>1</sup>
+
+<sup>1</sup> Yuvion Team, Alibaba Group · <sup>2</sup> Zhejiang Gongshang University<br>
+<sup>3</sup> Ant Group · <sup>4</sup> Alibaba Group<br>
+<sub>* Equal contribution · † Corresponding author</sub>
+
+[![Dataset](https://img.shields.io/badge/🤗_Hugging_Face-Dataset-FFD21E?style=flat-square)](https://huggingface.co/datasets/Alibaba-YuFeng/MMA-SafetyBench)
+[![Evaluation](https://img.shields.io/badge/Protocol-Evaluation_notes-083080?style=flat-square)](docs/EVALUATION.md)
+[![Quick start](https://img.shields.io/badge/Get_started-Quick_start-16837B?style=flat-square)](#-quick-start)
+
+**5 domains &nbsp; · &nbsp; 1,083 adversarial trajectories &nbsp; · &nbsp; 9 evaluated models**
+
+</div>
+
+---
+
+## Overview
 
 MMA-SafetyBench evaluates how multimodal agents respond to adversarial visual
 content across web, desktop GUI, mobile, document, and video tasks. The benchmark
@@ -12,7 +30,31 @@ contains **1,083 adversarial trajectories**. These scripts evaluate model output
 a predicted click or target-matching answer is not evidence that an action was
 executed in a live environment.
 
-## Coverage
+<p align="center">
+  <img src="assets/overview.png" alt="MMA-SafetyBench overview: visual injection threats, construction across five domains, and model-output safety evaluation." width="100%">
+</p>
+<p align="center"><sub>From visual injection to model-output evaluation across five agent domains.</sub></p>
+
+### At a glance
+
+- **Cross-domain coverage:** web automation, desktop GUI, mobile navigation, document analysis, and video tasks.
+- **Visual attack scenarios:** adversarial content is embedded in the visual material an agent encounters during a task.
+- **Explicit evaluation protocol:** ASR and SCR are documented separately, with task-level outputs and fixed benchmark denominators.
+
+## 📢 News
+
+- **2026-09-25:** MMA-SafetyBench was accepted to the **NeurIPS 2026 Evaluations and Datasets Track** as a poster.
+
+## 🗂️ Benchmark & resources
+
+| Resource | What you will find |
+| --- | --- |
+| [Hugging Face dataset](https://huggingface.co/datasets/Alibaba-YuFeng/MMA-SafetyBench) | Benchmark assets and dataset documentation; access depends on current repository permissions |
+| [Evaluation protocol](docs/EVALUATION.md) | Metrics, coordinate conventions, and historical GUI result compatibility |
+| [Implementation notes](docs/CODE_REVIEW.md) | Verified checks, remaining gaps, and protocol differences |
+| [Configuration example](.env.example) | Provider configuration without credentials |
+
+### Domain coverage
 
 | Domain | Tasks | Local entry point | Status |
 | --- | ---: | --- | --- |
@@ -27,7 +69,9 @@ The code cleanup includes offline tests and asset preflight, not a re-run of the
 paper's experiments. See [known protocol differences](docs/CODE_REVIEW.md) before
 comparing outputs from different scripts.
 
-## Quick start
+## 🚀 Quick start
+
+### 1. Install
 
 Python 3.10 or newer is required. Install from a cloned checkout (editable mode
 is intentional: the adapters are retained in their original directories).
@@ -39,6 +83,8 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e .
 ```
+
+### 2. Prepare the data
 
 Download and extract the dataset separately. Point `MMA_DATA_ROOT` at the directory
 containing the five numbered domain folders, not at an individual image folder.
@@ -53,12 +99,16 @@ Dataset access is governed by the Hugging Face repository's current permissions.
 └── 05_Video_Agent/
 ```
 
+### 3. Check assets offline
+
 Validate metadata, counts, and image decoding **without API calls or credentials**:
 
 ```bash
 mma-bench gui --data-root /path/to/MMA-SafetyBench-data --dry-run
 mma-bench web --data-root /path/to/MMA-SafetyBench-data --dry-run
 ```
+
+### 4. Configure and evaluate
 
 Configure your OpenAI-compatible provider in environment variables. URLs may be
 base URLs ending in `/v1` or full `/chat/completions` URLs. Never commit real keys.
